@@ -2,7 +2,7 @@ from random import randint
 import click
 
 
-class pizza():
+class Pizza():
     """
     Родительский класс пицца
     """
@@ -22,7 +22,7 @@ class pizza():
         pass
 
 
-class Margherita(pizza):
+class Margherita(Pizza):
     """
     Пицца Маргарита размера L или XL
     """
@@ -47,7 +47,7 @@ class Margherita(pizza):
         """
         Рецепт
         """
-        return {"tomato_sauce": self.tomato_sauce, "mozzarella": self.mozzarella, "tomatoes": self.tomatoes}
+        return {'tomato_sauce': self.tomato_sauce, 'mozzarella': self.mozzarella, 'tomatoes': self.tomatoes}
 
     def __hash__(self):
         """
@@ -65,7 +65,7 @@ class Margherita(pizza):
         return eq_tomato_sauce and eq_mozzarella and eq_tomatoes
 
 
-class Pepperoni(pizza):
+class Pepperoni(Pizza):
     """
     Пицца Пепперони размера L или XL
     """
@@ -90,7 +90,7 @@ class Pepperoni(pizza):
         """
         Рецепт
         """
-        return {"tomato_sauce": self.tomato_sauce, "mozzarella": self.mozzarella, "pepperoni": self.pepperoni}
+        return {'tomato_sauce': self.tomato_sauce, 'mozzarella': self.mozzarella, 'pepperoni': self.pepperoni}
 
     def __hash__(self):
         """
@@ -108,7 +108,7 @@ class Pepperoni(pizza):
         return eq_tomato_sauce and eq_mozzarella and eq_pepperoni
 
 
-class Hawaiian(pizza):
+class Hawaiian(Pizza):
     """
     Пицца Гавайская размера L или XL
     """
@@ -135,9 +135,9 @@ class Hawaiian(pizza):
         """
         Рецепт
         """
-        return {"tomato_sauce": self.tomato_sauce,
-                "mozzarella": self.mozzarella, "chicken": self.chicken,
-                "pineapples": self.pineapples}
+        return {'tomato_sauce': self.tomato_sauce,
+                'mozzarella': self.mozzarella, 'chicken': self.chicken,
+                'pineapples': self.pineapples}
 
     def __hash__(self):
         """
@@ -194,12 +194,12 @@ def cli():
 @click.argument('size')
 def order(pizza_: str, size: str, delivery_: bool):
     """Готовит и доставляет пиццу"""
-    if f'{pizza_} {size}' in [str(subclass('L')) for subclass in pizza.__subclasses__()]:
+    if f'{pizza_} {size}' in [str(subclass('L')) for subclass in Pizza.__subclasses__()]:
         bake(pizza_, size)
-    elif f'{pizza_} {size}' in [str(subclass('XL')) for subclass in pizza.__subclasses__()]:
+    elif f'{pizza_} {size}' in [str(subclass('XL')) for subclass in Pizza.__subclasses__()]:
         bake(pizza_, size)
     else:
-        raise KeyError("Внимательнее смотри меню...")
+        raise KeyError('Внимательнее смотри меню...')
     if delivery_:
         delivery(pizza_)
 
@@ -209,11 +209,11 @@ def menu():
     """
     Выводит меню из всех наследников класса pizza размера L, XL
     '"""
-    for subclass in pizza.__subclasses__():
-        print("- ", subclass('XL'), ": ", ''.join('{} - {} gr, '.format(key, val)
-              for key, val in sorted(subclass("XL").__dict__().items())))
-        print("- ", subclass('L'), ": ", ''.join('{} - {} gr, '.format(key, val)
-              for key, val in sorted(subclass("L").__dict__().items())))
+    for subclass in Pizza.__subclasses__():
+        print('- ', subclass('XL'), ': ', ''.join('{} - {} gr, '.format(key, val)
+              for key, val in sorted(subclass('XL').__dict__().items())))
+        print('- ', subclass('L'), ': ', ''.join('{} - {} gr, '.format(key, val)
+              for key, val in sorted(subclass('L').__dict__().items())))
 
 
 if __name__ == '__main__':
