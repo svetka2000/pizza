@@ -1,6 +1,7 @@
 from random import randint
 import click
 
+
 class pizza():
     """
     Родительский класс пицца
@@ -194,9 +195,9 @@ def cli():
 def order(pizza_: str, size: str, delivery_: bool):
     """Готовит и доставляет пиццу"""
     if f'{pizza_} {size}' in [str(subclass('L')) for subclass in pizza.__subclasses__()]:
-            bake(pizza_, size)
+        bake(pizza_, size)
     elif f'{pizza_} {size}' in [str(subclass('XL')) for subclass in pizza.__subclasses__()]:
-            bake(pizza_, size)
+        bake(pizza_, size)
     else:
         raise KeyError("Внимательнее смотри меню...")
     if delivery_:
@@ -216,6 +217,5 @@ def menu():
 
 
 if __name__ == '__main__':
-    #menu()
+    # menu()
     cli()
-
